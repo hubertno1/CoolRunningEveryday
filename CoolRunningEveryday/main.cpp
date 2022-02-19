@@ -32,6 +32,7 @@
 //背景图片
 IMAGE imgBgs[3];
 int bgX[3];		//背景图片的X坐标
+int bgSpeed[3] = { 1, 2, 4 };
 
 
 //游戏的初始化
@@ -54,11 +55,25 @@ void init() {
 	
 }
 
+void fly() {
+	for (int i = 0; i < 3; i++) {
+		bgX[i] -= bgSpeed[i];
+		if (bgX[i] < -WIN_WIDTH) {
+			bgX[i] = 0;
+		}
+	}
+}
+
+
+
+
+
 //渲染“游戏背景”  (渲染就是打印的意思)
 void updateBg() {
-	putimagePNG(bgX[0],   0, &imgBgs[0]);			//第一重背景，白云
-	putimagePNG(bgX[1], 119, &imgBgs[1]);
-	putimagePNG(bgX[2], 330, &imgBgs[2]);
+
+	putimagePNG2(bgX[0],   0, &imgBgs[0]);			//第一重背景，白云
+	putimagePNG2(bgX[1], 119, &imgBgs[1]);
+	putimagePNG2(bgX[2], 330, &imgBgs[2]);
 }
 
 
@@ -68,9 +83,19 @@ int main(void)
 {
 	init();
 	
-	updateBg();
-	//...
-	
+	while (1) {
+
+		
+		BeginBatchDraw();
+		updateBg();
+		EndBatchDraw();
+		
+		fly();
+
+		Sleep(30);
+	}
+
+
 	system("PAUSE");
 
 	return 0;
