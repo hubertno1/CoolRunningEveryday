@@ -27,7 +27,7 @@
 #include "tools.h"
 
 #define WIN_WIDTH 1012
-#define WIN_HEIGHT 396
+#define WIN_HEIGHT 396					//396
 
 //背景图片
 IMAGE imgBgs[3];
@@ -55,6 +55,7 @@ void init() {
 	
 }
 
+//实现三个背景不同速度的分别移动，从而产生视觉3D感
 void fly() {
 	for (int i = 0; i < 3; i++) {
 		bgX[i] -= bgSpeed[i];
@@ -71,9 +72,9 @@ void fly() {
 //渲染“游戏背景”  (渲染就是打印的意思)
 void updateBg() {
 
-	putimagePNG2(bgX[0],   0, &imgBgs[0]);			//第一重背景，白云
-	putimagePNG2(bgX[1], 119, &imgBgs[1]);
-	putimagePNG2(bgX[2], 330, &imgBgs[2]);
+	putimagePNG2(bgX[0],   0, &imgBgs[0]);			//第一重背景，白云   0
+	putimagePNG2(bgX[1], 119, &imgBgs[1]);			//119
+	putimagePNG2(bgX[2], 330, &imgBgs[2]);			//330
 }
 
 
@@ -85,7 +86,8 @@ int main(void)
 	
 	while (1) {
 
-		
+
+		//updateBg() 每次渲染的都是更新后的坐标，需要更新x轴坐标，图片向左移动，所以左上角图片的坐标为-2，-4（针对第一层背景）
 		BeginBatchDraw();
 		updateBg();
 		EndBatchDraw();
